@@ -48,6 +48,10 @@ The following packages comprise the Patterns and Practices client side libraries
 
 **Rollup library of core functionality, mimics sp-pnp-js**
 
+## [@pnp/project](packages/project/docs/index.md)
+
+**Provides a fluent api for working with Project REST**
+
 ## [@pnp/sp](packages/sp/docs/index.md)
 
 **Provides a fluent api for working with SharePoint REST**

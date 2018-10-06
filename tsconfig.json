@@ -62,6 +62,9 @@
             "path": "./packages/pnpjs/tsconfig.es2015.json"
         },
         {
+            "path": "./packages/project/tsconfig.es2015.json"
+        },
+        {
             "path": "./packages/sp/tsconfig.es2015.json"
         },
         {

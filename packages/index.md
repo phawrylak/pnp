@@ -34,6 +34,7 @@ The latest published version is **{{version}}**.
 || [nodejs](nodejs/docs/index.md) | Provides functionality enabling the @pnp libraries within nodejs |
 || [odata](odata/docs/index.md) | Provides shared odata functionality and base classes |
 || [pnpjs](pnpjs/docs/index.md) | Rollup library of core functionality (mimics sp-pnp-js) |
+|| [project](project/docs/index.md) | Provides a fluent api for working with Project REST |
 || [sp](sp/docs/index.md) | Provides a fluent api for working with SharePoint REST |
 || [sp-addinhelpers](sp-addinhelpers/docs/index.md) | Provides functionality for working within SharePoint add-ins |
 || [sp-clientsvc](sp-clientsvc/docs/index.md) | Provides based classes used to create a fluent api for working with SharePoint Managed Metadata |

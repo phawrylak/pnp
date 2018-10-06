@@ -32,6 +32,7 @@ const config = {
         "sp-addinhelpers",
         "config-store",
         "pnpjs",
+        "project",
         "sp-clientsvc",
         "sp-taxonomy",
     ],
