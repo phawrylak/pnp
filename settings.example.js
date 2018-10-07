@@ -13,10 +13,15 @@ var settings = {
             url: "{ site collection url }",
             notificationUrl: "{ notification url }",
         },
+        project: {
+            username: "{ username }",
+            password: "{ password }",
+            url: "{ site collection url }",
+        },
         graph: {
             tenant: "{tenant.onmicrosoft.com}",
             id: "{your app id}",
-            secret: "{your secret}"
+            secret: "{your secret}",
         },
     }
 }

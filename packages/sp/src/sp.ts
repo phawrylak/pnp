@@ -5,6 +5,7 @@ export {
 } from "./odata";
 
 export {
+    defaultPath,
     SharePointQueryable,
     SharePointQueryableInstance,
     SharePointQueryableCollection,
