@@ -39,7 +39,7 @@ export interface ISearchQueryBuilder {
     clientType(clientType: string): this;
     personalizationData(data: string): this;
     resultsURL(url: string): this;
-    queryTag(...tags: string[]): this;
+    queryTag(tags: string): this;
     properties(...properties: SearchProperty[]): this;
     queryTemplatePropertiesUrl(url: string): this;
     reorderingRules(...rules: ReorderingRule[]): this;
@@ -487,7 +487,7 @@ export interface SearchQuery {
     /**
      * Custom tags that identify the query. You can specify multiple query tags
      */
-    QueryTag?: string[];
+    QueryTag?: string;
 
     /**
      * Properties to be used to configure the search query
@@ -662,7 +662,7 @@ export interface SearchProperty {
 export interface SearchPropertyValue {
     StrVal?: string;
     BoolVal?: boolean;
-    Intval?: number;
+    IntVal?: number;
     StrArray?: string[];
     QueryPropertyValueTypeIndex: QueryPropertyValueType;
 }

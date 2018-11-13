@@ -22,6 +22,7 @@ node_modules
 /build
 /dist
 /site
+.awcache
 
 # Optional npm cache directory
 .npm
@@ -37,11 +38,15 @@ debug/launch/*
 debug/serve/*
 !debug/serve/main.ts
 !debug/serve/tsconfig.json
+!debug/serve/webpack.config.js
 
 # project settings
 settings.js
 
 bower_components
+
+# we don't use this in the repo
+package-lock.json
 
 # need to include this for bower to work, but leave this ignored as PRs
 # with updates to dist will be disallowed

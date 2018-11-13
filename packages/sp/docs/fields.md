@@ -5,9 +5,9 @@ Fields allow you to store typed information within a SharePoint list. There are 
 ## Get Fields
 
 ```TypeScript
-import pnp from "@pnp/sp";
+import { sp } from "@pnp/sp";
 
-let web = pnp.sp.web;
+let web = sp.web;
 
 // get all the fields in a web
 web.fields.get().then(f => {
@@ -50,14 +50,54 @@ web.fields.getByInternalNameOrTitle("MyField4").get().then(f => {
 });
 ```
 
+## Filtering Fields 
+
+Sometimes you only want a subset of fields from the collection. Below are some examples of using the filter operator with the fields collection.
+
+```TypeScript
+import { sp } from '@pnp/sp';
+
+const list = sp.web.lists.getByTitle('Custom');
+
+// Fields which can be updated
+const filter1 = `Hidden eq false and ReadOnlyField eq false`;
+list.fields.select('InternalName').filter(filter1).get().then(fields => {
+    console.log(`Can be updated: ${fields.map(f => f.InternalName).join(', ')}`);
+    // Title, ...Custom, ContentType, Attachments
+});
+    
+// Only custom field
+const filter2 = `Hidden eq false and CanBeDeleted eq true`;
+list.fields.select('InternalName').filter(filter2).get().then(fields => {
+    console.log(`Custom fields: ${fields.map(f => f.InternalName).join(', ')}`);
+    // ...Custom
+});
+
+// Application specific fields
+const includeFields = [ 'Title', 'Author', 'Editor', 'Modified', 'Created' ];
+const filter3 = `Hidden eq false and (ReadOnlyField eq false or (${
+    includeFields.map(field => `InternalName eq '${field}'`).join(' or ')
+}))`;
+list.fields.select('InternalName').filter(filter3).get().then(fields => {
+    console.log(`Application specific: ${fields.map(f => f.InternalName).join(', ')}`);
+    // Title, ...Custom, ContentType, Modified, Created, Author, Editor, Attachments
+});
+
+// Fields in a view
+list.defaultView.fields.select('Items').get().then(f => {
+    const fields = (f as any).Items.results || (f as any).Items;
+    console.log(`Fields in a view: ${fields.join(', ')}`);
+});
+```
+
 ## Add Fields
 
 You can add fields using the add, createFieldAsXml, or one of the type specific methods. Functionally there is no difference, however one method may be easier given a certain scenario.
 
 ```TypeScript
-import pnp from "@pnp/sp";
+import { sp } from "@pnp/sp";
 
-let web = pnp.sp.web;
+let web = sp.web;
 
 // if you use add you _must_ include the correct FieldTypeKind in the extended properties
 web.fields.add("MyField1", "SP.FieldText", { 
@@ -92,6 +132,16 @@ web.lists.getByTitle("MyList").fields.addText("MyField5", 100).then(f => {
 
     console.log(f);
 });
+
+// Create a lookup field, and a dependent lookup field
+web.lists.getByTitle("MyList").fields.addLookup("MyLookup", "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx", "MyLookupTargetField").then(f => {
+    console.log(f);
+    
+    // Create the dependent lookup field
+    return web.lists.getByTitle("MyList").fields.addDependentLookupField("MyLookup_ID", f.Id, "ID");
+}).then(fDep => {
+    console.log(fDep);
+});
 ```
 
 ## Update a Field
@@ -99,9 +149,9 @@ web.lists.getByTitle("MyList").fields.addText("MyField5", 100).then(f => {
 You can also update the properties of a field in both webs and lists, but not all properties are able to be updated after creation. You can review [this list](https://msdn.microsoft.com/en-us/library/office/dn600182.aspx#bk_FieldProperties) for details.
 
 ```TypeScript
-import pnp from "@pnp/sp";
+import { sp } from "@pnp/sp";
 
-let web = pnp.sp.web;
+let web = sp.web;
 
 web.fields.getByTitle("MyField4").update({ 
     Description: "A new description",
@@ -116,6 +166,8 @@ web.fields.getByTitle("MyField4").update({
 When updating a URL or Picture field you need to include the __metadata descriptor as shown below.
 
 ```TypeScript
+import { sp } from "@pnp/sp";
+
 const data = {
     "My_Field_Name": {
         "__metadata": { "type": "SP.FieldUrlValue" },
@@ -130,9 +182,9 @@ await sp.web.lists.getByTitle("MyListTitle").items.getById(1).update(data);
 ## Delete a Field
 
 ```TypeScript
-import pnp from "@pnp/sp";
+import { sp } from "@pnp/sp";
 
-let web = pnp.sp.web;
+let web = sp.web;
 
 web.fields.getByTitle("MyField4").delete().then(f => {
 

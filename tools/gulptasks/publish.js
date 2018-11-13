@@ -8,6 +8,7 @@
 
 const gulp = require("gulp"),
     path = require("path"),
+    pkg = require("../../package.json"),
     cmdLine = require("./args").processConfigCmdLine,
     exec = require("child_process").execSync,
     log = require("fancy-log");
@@ -37,7 +38,7 @@ function doPublish(configFileName) {
     const engine = require(path.join(projectRoot, "./build/tools/buildsystem")).publisher;
     const config = cmdLine(require(path.join(projectRoot, configFileName)));
 
-    return engine(config);
+    return engine(pkg.version, config);
 }
 
 /**
@@ -65,6 +66,15 @@ function runPublishScript() {
 
     // package and publish to npm
     script.push("gulp publish:packages");
+
+    // merge master back to dev for updated version #
+    script.push(
+        "git checkout master",
+        "git pull",
+        "git checkout dev",
+        "git pull",
+        "git merge master",
+        "git push");
 
     // always leave things on the dev branch
     script.push("git checkout dev");
