@@ -28,6 +28,9 @@
             "path": "./pnpjs/tsconfig.es5.json"
         },
         {
+            "path": "./project/tsconfig.es5.json"
+        },
+        {
             "path": "./sp/tsconfig.es5.json"
         },
         {
