@@ -11,9 +11,7 @@
         "../logging/index.ts",
         "../logging/src/**/*.ts",
         "../odata/index.ts",
-        "../odata/src/**/*.ts",
-        "../sp/index.ts",
-        "../sp/src/**/*.ts"
+        "../odata/src/**/*.ts"
     ],
     "references": [
         {
@@ -24,9 +22,6 @@
         },
         {
             "path": "../odata"
-        },
-        {
-            "path": "../sp"
         }
     ]
 }

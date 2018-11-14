@@ -1,5 +1,4 @@
 import { Logger, LogLevel } from "@pnp/logging";
-import { sp } from "@pnp/sp";
 import { project } from "@pnp/project";
 import { PnpNode } from "sp-pnp-node";
 
@@ -8,8 +7,8 @@ declare var process: { exit(code?: number): void };
 export function Example(settings: any) {
 
     // configure your node options
-    sp.setup({
-        sp: {
+    project.setup({
+        project: {
             baseUrl: settings.testing.project.url,
             fetchClientFactory: () => new PnpNode({
                 authOptions: settings.testing.project,
@@ -19,15 +18,14 @@ export function Example(settings: any) {
     });
 
     // run some debugging
-    project.projects.select("Name").get().then(projects => {
+    project.projects.add({ name: "TestProject" }).then(data => {
 
         // logging results to the Logger
-        projects.forEach(p =>
-            Logger.log({
-                data: p.Name,
-                level: LogLevel.Info,
-                message: "Project Name",
-            }));
+        Logger.log({
+            data: JSON.stringify(data),
+            level: LogLevel.Info,
+            message: "Result",
+        });
 
         process.exit(0);
     }).catch(e => {

@@ -8,7 +8,7 @@ This package contains the fluent API used to call the Project REST services.
 
 Install the library and required dependencies
 
-`npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp @pnp/project --save`
+`npm install @pnp/logging @pnp/common @pnp/odata @pnp/project --save`
 
 Import the library into your application and access the root project object
 
@@ -28,12 +28,11 @@ import { project } from "@pnp/project";
 
 Install the library and required dependencies
 
-`npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp @pnp/project --save`
+`npm install @pnp/logging @pnp/common @pnp/odata @pnp/project --save`
 
 Import the library into your application, update OnInit, and access the root project object in render
 
 ```TypeScript
-import { sp } from "@pnp/sp";
 import { project } from "@pnp/project";
 
 // ...
@@ -44,7 +43,7 @@ public onInit(): Promise<void> {
 
     // other init code may be present
 
-    sp.setup({
+    project.setup({
       spfxContext: this.context
     });
   });
@@ -63,22 +62,21 @@ public render(): void {
 }
 ```
 
-## Getting Started: Nodejs
+## Getting Started: Node.js
 
 Install the library and required dependencies
 
-`npm install @pnp/logging @pnp/common @pnp/odata @pnp/sp @pnp/project @pnp/nodejs --save`
+`npm install @pnp/logging @pnp/common @pnp/odata @pnp/project @pnp/nodejs --save`
 
 Import the library into your application, setup the node client, make a request
 
 ```TypeScript
-import { sp } from "@pnp/sp";
 import { project } from "@pnp/project";
 import { SPFetchClient } from "@pnp/nodejs";
 
-// do this once per page load
-sp.setup({
-    sp: {
+// do this once
+project.setup({
+    project: {
         fetchClientFactory: () => {
             return new SPFetchClient("{your site url}", "{your client id}", "{your client secret}");
         },

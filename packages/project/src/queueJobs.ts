@@ -1,12 +1,12 @@
 import {
-    SharePointQueryableCollection,
-    SharePointQueryableInstance,
-} from "@pnp/sp";
+    ProjectQueryableCollection,
+    ProjectQueryableInstance,
+} from "./projectqueryable";
 
 /**
  * Represents a collection of QueueJob objects
  */
-export class QueueJobs extends SharePointQueryableCollection {
+export class QueueJobCollection extends ProjectQueryableCollection {
 
     /**
     * Gets a queue job from the collection with the specified GUID
@@ -23,7 +23,7 @@ export class QueueJobs extends SharePointQueryableCollection {
 /**
  * Queues a project for publishing
  */
-export class QueueJob extends SharePointQueryableInstance {
+export class QueueJob extends ProjectQueryableInstance {
 
     /**
      * Cancels the queue job

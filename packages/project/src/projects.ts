@@ -1,17 +1,17 @@
 import { jsS, TypedHash } from "@pnp/common";
 import {
     defaultPath,
-    SharePointQueryableCollection,
-    SharePointQueryableInstance,
-} from "@pnp/sp";
-
-import { QueueJob, QueueJobs } from "./queueJobs";
+    ProjectQueryableCollection,
+    ProjectQueryableInstance,
+} from "./projectqueryable";
+import { QueueJob, QueueJobCollection } from "./queuejobs";
+import { DraftTaskCollection, PublishedTaskCollection } from "./tasks";
 
 /**
  * Represents a collection of PublishedProject objects
  */
 @defaultPath("_api/ProjectServer/Projects")
-export class Projects extends SharePointQueryableCollection {
+export class ProjectCollection extends ProjectQueryableCollection {
 
     /**
     * Gets a project from the collection with the specified GUID
@@ -38,13 +38,13 @@ export class Projects extends SharePointQueryableCollection {
 /**
  * Contains the common properties for draft projects and published projects
  */
-export class Project extends SharePointQueryableInstance {
+export abstract class Project extends ProjectQueryableInstance {
 
     /**
      * Gets the collection of Project Server Queue Service jobs that are associated with the project
      */
-    public get queueJobs(): QueueJobs {
-        return new QueueJobs(this, "QueueJobs");
+    public get queueJobs(): QueueJobCollection {
+        return new QueueJobCollection(this, "QueueJobs");
     }
 }
 
@@ -54,16 +54,17 @@ export class Project extends SharePointQueryableInstance {
 export class PublishedProject extends Project {
 
     /**
-     * Deletes this project
-     *
-     */
-    public delete = this._delete;
-
-    /**
      * Gets a DraftProject object if it is not already checked out
      */
     public get draft(): DraftProject {
         return new DraftProject(this, "Draft");
+    }
+
+    /**
+     * Gets the collection of tasks for the project
+     */
+    public get tasks(): PublishedTaskCollection {
+        return new PublishedTaskCollection(this, "Tasks");
     }
 
     /**
@@ -72,6 +73,18 @@ export class PublishedProject extends Project {
     public async checkOut(): Promise<DraftProjectResult> {
         const data = await this.clone(PublishedProject, "CheckOut").postCore();
         return { data: data, draft: this.draft };
+    }
+
+    /**
+     * Deletes the PublishedProject object
+     */
+    public async delete(): Promise<QueueJobResult> {
+        const data = await this.postCore({
+            headers: {
+                "X-HTTP-Method": "DELETE",
+            },
+        });
+        return { data: data, queueJob: this.queueJobs.getById(data.Id) };
     }
 
     /**
@@ -86,6 +99,13 @@ export class PublishedProject extends Project {
  * Represents the draft version of a project, which is a project that is checked out
  */
 export class DraftProject extends Project {
+
+    /**
+     * Gets the collection of task objects for the project
+     */
+    public get tasks(): DraftTaskCollection {
+        return new DraftTaskCollection(this, "Tasks");
+    }
 
     /**
     * Updates this draft project with the supplied properties
@@ -125,27 +145,27 @@ export interface ProjectCreationInformation {
     /**
      * Gets or sets the description of the project
      */
-    Description?: string;
+    description?: string;
 
     /**
      * Gets or sets the GUID of the enterprise project type (EPT)
      */
-    EnterpriseProjectTypeId?: string;
+    enterpriseProjectTypeId?: string;
 
     /**
      * Gets or sets the GUID of the project
      */
-    Id?: string;
+    id?: string;
 
     /**
      * Gets or sets the name of the project
      */
-    Name: string;
+    name: string;
 
     /**
      * Gets or sets the start date of the project
      */
-    Start?: Date;
+    start?: Date;
 }
 
 export interface PublishedProjectResult {

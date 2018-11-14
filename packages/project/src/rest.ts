@@ -1,9 +1,8 @@
 import { ConfigOptions } from "@pnp/common";
 import {
-    SharePointQueryable,
-    SharePointQueryableConstructor,
-} from "@pnp/sp";
-
+    ProjectQueryable,
+    ProjectQueryableConstructor,
+} from "./projectqueryable";
 import { Projects } from "./projects";
 
 /**
@@ -43,7 +42,7 @@ export class ProjectRest {
      * @param fm The factory method used to create the instance
      * @param path Optional additional path information to pass to the factory method
      */
-    private create<T extends SharePointQueryable>(fm: SharePointQueryableConstructor<T>, path?: string): T {
+    private create<T extends ProjectQueryable>(fm: ProjectQueryableConstructor<T>, path?: string): T {
         return new fm(this._baseUrl, path).configure(this._options);
     }
 }
