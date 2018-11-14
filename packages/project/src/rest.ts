@@ -32,7 +32,6 @@ export class ProjectRest {
 
     /**
      * Gets projects
-     *
      */
     public get projects(): Projects {
         return this.create(Projects);
