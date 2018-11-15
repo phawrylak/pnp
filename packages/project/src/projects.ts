@@ -4,7 +4,7 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
-import { QueueJob, QueueJobCollection } from "./queuejobs";
+import { QueueJobCollection, QueueJobResult } from "./queuejobs";
 import { DraftTaskCollection, PublishedTaskCollection } from "./tasks";
 
 /**
@@ -176,9 +176,4 @@ export interface PublishedProjectResult {
 export interface DraftProjectResult {
     data: any;
     draft: DraftProject;
-}
-
-export interface QueueJobResult {
-    data: any;
-    queueJob: QueueJob;
 }
