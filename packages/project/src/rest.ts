@@ -3,7 +3,8 @@ import {
     ProjectQueryable,
     ProjectQueryableConstructor,
 } from "./projectqueryable";
-import { Projects } from "./projects";
+import { ProjectCollection } from "./projects";
+import { JobState, QueueJob } from "./queuejobs";
 
 /**
  * Root of the Project REST module
@@ -19,6 +20,13 @@ export class ProjectRest {
     constructor(protected _options: ConfigOptions = {}, protected _baseUrl = "") { }
 
     /**
+     * Gets projects
+     */
+    public get projects(): ProjectCollection {
+        return this.create(ProjectCollection);
+    }
+
+    /**
      * Configures instance with additional options and baseUrl.
      * Provided configuration used by other objects in a chain
      *
@@ -30,10 +38,34 @@ export class ProjectRest {
     }
 
     /**
-     * Gets projects
+     * Waits for the specified queue job to complete, or for a maximum number of seconds
+     *
+     * @param job An object that represents the queued job
+     * @param timeoutSeconds The maximum number of seconds to wait for the queue job to complete
      */
-    public get projects(): Projects {
-        return this.create(Projects);
+    public async waitForQueue(job: QueueJob, timeoutSeconds: number): Promise<JobState> {
+        const waitingStates = [
+            JobState.Unknown,
+            JobState.ReadyForProcessing,
+            JobState.SendIncomplete,
+            JobState.Processing,
+            JobState.ProcessingDeferred,
+            JobState.OnHold,
+            JobState.Sleeping,
+            JobState.ReadyForLaunch,
+        ];
+
+        do {
+            const data = await job.get();
+            if (!data) {
+                return JobState.Success;
+            } else if (waitingStates.indexOf(data.JobState) === -1) {
+                return data.JobState;
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                timeoutSeconds -= 2;
+            }
+        } while (timeoutSeconds > 0);
     }
 
     /**

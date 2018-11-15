@@ -32,12 +32,12 @@ export {
     ProjectCreationInformation,
     PublishedProject,
     PublishedProjectResult,
-    QueueJobResult,
 } from "./projects";
 
 export {
     QueueJob,
     QueueJobCollection,
+    QueueJobResult,
 } from "./queuejobs";
 
 export {

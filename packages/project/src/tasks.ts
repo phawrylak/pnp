@@ -1,4 +1,4 @@
-import { jsS, TypedHash } from "@pnp/common";
+import { jsS } from "@pnp/common";
 import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,

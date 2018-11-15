@@ -31,38 +31,6 @@ export class QueueJob extends ProjectQueryableInstance {
     public cancel(): Promise<void> {
         return this.clone(QueueJob, "Cancel").postCore();
     }
-
-    /**
-     * Waits until the job is finished (uses polling)
-     *
-     * @param timeout The maximum time to wait (ms)
-     * @param interval The polling interval (ms)
-     */
-    public async waitForJob(timeout = 0, interval = 250): Promise<QueueJobResult> {
-        const finishedStates = [
-            JobState.SendIncomplete,
-            JobState.Success,
-            JobState.Failed,
-            JobState.FailedNotBlocking,
-            JobState.CorrelationBlocked,
-            JobState.Canceled,
-            JobState.LastState,
-        ];
-
-        let isTimeout = false;
-        if (timeout) {
-            setTimeout(() => isTimeout = true, timeout);
-        }
-
-        while (true) {
-            const data = await this.get();
-            if (finishedStates.indexOf(data.JobState) > -1 || isTimeout) {
-                return { data: data, queueJob: this };
-            } else {
-                await new Promise(resolve => setTimeout(resolve, interval));
-            }
-        }
-    }
 }
 
 export interface QueueJobResult {
