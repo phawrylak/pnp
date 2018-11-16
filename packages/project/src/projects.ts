@@ -4,8 +4,9 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
-import { QueueJobCollection, QueueJobResult } from "./queuejobs";
+import { QueueJob, QueueJobCollection } from "./queuejobs";
 import { DraftTaskCollection, PublishedTaskCollection } from "./tasks";
+import { CommandResult } from "./types";
 
 /**
  * Represents a collection of PublishedProject objects
@@ -29,9 +30,9 @@ export class ProjectCollection extends ProjectQueryableCollection {
      *
      * @param parameters The properties of the project to create
      */
-    public async add(parameters: ProjectCreationInformation): Promise<PublishedProjectResult> {
+    public async add(parameters: ProjectCreationInformation): Promise<CommandResult<PublishedProject>> {
         const data = await this.postCore({ body: jsS(parameters) });
-        return { data: data, project: this.getById(data.Id) };
+        return { data: data, instance: this.getById(data.Id) };
     }
 }
 
@@ -70,21 +71,21 @@ export class PublishedProject extends Project {
     /**
      * Checks out the draft version of the project
      */
-    public async checkOut(): Promise<DraftProjectResult> {
+    public async checkOut(): Promise<CommandResult<DraftProject>> {
         const data = await this.clone(PublishedProject, "CheckOut").postCore();
-        return { data: data, draft: this.draft };
+        return { data: data, instance: this.draft };
     }
 
     /**
      * Deletes the PublishedProject object
      */
-    public async delete(): Promise<QueueJobResult> {
+    public async delete(): Promise<CommandResult<QueueJob>> {
         const data = await this.postCore({
             headers: {
                 "X-HTTP-Method": "DELETE",
             },
         });
-        return { data: data, queueJob: this.queueJobs.getById(data.Id) };
+        return { data: data, instance: this.queueJobs.getById(data.Id) };
     }
 
     /**
@@ -112,18 +113,18 @@ export class DraftProject extends Project {
     *
     * @param properties A plain object of property names and values to update the draft project
     */
-    public update = this._update<QueueJobResult, TypedHash<any>, any>(
+    public update = this._update<CommandResult<QueueJob>, TypedHash<any>, any>(
         "PS.DraftProject",
-        data => ({ data: data, queueJob: this.queueJobs.getById(data.Id) }));
+        data => ({ data: data, instance: this.queueJobs.getById(data.Id) }));
 
     /**
      * Queues a check-in job for a draft project if it is still checked out
      *
      * @param force True if the administrator or project owner forces check in of a project; otherwise, false
      */
-    public async checkIn(force: boolean): Promise<QueueJobResult> {
+    public async checkIn(force: boolean): Promise<CommandResult<QueueJob>> {
         const data = await this.clone(DraftProject, "CheckIn").postCore({ body: jsS({ force: force }) });
-        return { data: data, queueJob: this.queueJobs.getById(data.Id) };
+        return { data: data, instance: this.queueJobs.getById(data.Id) };
     }
 
     /**
@@ -131,9 +132,9 @@ export class DraftProject extends Project {
      *
      * @param checkIn Boolean that indicates whether the project should be checked in after it is published
      */
-    public async publish(checkIn: boolean): Promise<QueueJobResult> {
+    public async publish(checkIn: boolean): Promise<CommandResult<QueueJob>> {
         const data = await this.clone(DraftProject, "Publish").postCore({ body: jsS({ checkIn: checkIn }) });
-        return { data: data, queueJob: this.queueJobs.getById(data.Id) };
+        return { data: data, instance: this.queueJobs.getById(data.Id) };
     }
 }
 
@@ -166,14 +167,4 @@ export interface ProjectCreationInformation {
      * Gets or sets the start date of the project
      */
     start?: Date;
-}
-
-export interface PublishedProjectResult {
-    data: any;
-    project: PublishedProject;
-}
-
-export interface DraftProjectResult {
-    data: any;
-    draft: DraftProject;
 }

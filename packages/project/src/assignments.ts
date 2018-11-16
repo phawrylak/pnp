@@ -3,6 +3,7 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
+import { CommandResult } from "./types";
 
 /**
  * Represents a collection of published assignments
@@ -42,9 +43,9 @@ export class DraftAssignmentCollection extends ProjectQueryableCollection {
      *
      * @param parameters The properties of the draft assignment to create
      */
-    public async add(parameters: AssignmentCreationInformation): Promise<DraftAssignmentResult> {
+    public async add(parameters: AssignmentCreationInformation): Promise<CommandResult<DraftAssignment>> {
         const data = await this.postCore({ body: jsS(parameters) });
-        return { data: data, draft: this.getById(data.Id) };
+        return { data: data, instance: this.getById(data.Id) };
     }
 }
 
@@ -105,9 +106,4 @@ export interface AssignmentCreationInformation {
      * Gets or sets the GUID of the task for the assignment
      */
     taskId?: string;
-}
-
-export interface DraftAssignmentResult {
-    data: any;
-    draft: DraftAssignment;
 }

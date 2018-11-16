@@ -33,11 +33,6 @@ export class QueueJob extends ProjectQueryableInstance {
     }
 }
 
-export interface QueueJobResult {
-    data: any;
-    queueJob: QueueJob;
-}
-
 /**
  * The Project Server queue job state specifies the status of a queue job
  */

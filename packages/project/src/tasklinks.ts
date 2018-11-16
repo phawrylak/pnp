@@ -3,6 +3,7 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
+import { CommandResult } from "./types";
 
 /**
  * Represents a collection of task links in a published project
@@ -42,9 +43,9 @@ export class DraftTaskLinkCollection extends ProjectQueryableCollection {
      *
      * @param parameters The properties of the draft task link to create
      */
-    public async add(parameters: TaskLinkCreationInformation): Promise<DraftTaskLinkResult> {
+    public async add(parameters: TaskLinkCreationInformation): Promise<CommandResult<DraftTaskLink>> {
         const data = await this.postCore({ body: jsS(parameters) });
-        return { data: data, draft: this.getById(data.Id) };
+        return { data: data, instance: this.getById(data.Id) };
     }
 }
 
@@ -95,11 +96,6 @@ export interface TaskLinkCreationInformation {
      * Gets or sets the GUID of the task that is at the start of the link
      */
     startId: string;
-}
-
-export interface DraftTaskLinkResult {
-    data: any;
-    draft: DraftTaskLink;
 }
 
 export enum DependencyType {

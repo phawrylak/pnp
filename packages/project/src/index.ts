@@ -26,18 +26,15 @@ export {
 
 export {
     DraftProject,
-    DraftProjectResult,
     Project,
     ProjectCollection,
     ProjectCreationInformation,
     PublishedProject,
-    PublishedProjectResult,
 } from "./projects";
 
 export {
     QueueJob,
     QueueJobCollection,
-    QueueJobResult,
 } from "./queuejobs";
 
 export {

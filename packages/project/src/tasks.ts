@@ -3,6 +3,7 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
+import { CommandResult } from "./types";
 
 /**
  * Represents a collection of tasks in a published project
@@ -42,9 +43,9 @@ export class DraftTaskCollection extends ProjectQueryableCollection {
      *
      * @param parameters The properties of the draft task to create
      */
-    public async add(parameters: TaskCreationInformation): Promise<DraftTaskResult> {
+    public async add(parameters: TaskCreationInformation): Promise<CommandResult<DraftTask>> {
         const data = await this.postCore({ body: jsS(parameters) });
-        return { data: data, draft: this.getById(data.Id) };
+        return { data: data, instance: this.getById(data.Id) };
     }
 }
 
@@ -120,9 +121,4 @@ export interface TaskCreationInformation {
      * Gets or sets the task start date
      */
     start?: Date;
-}
-
-export interface DraftTaskResult {
-    data: any;
-    draft: DraftTask;
 }
