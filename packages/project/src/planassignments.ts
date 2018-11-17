@@ -4,6 +4,7 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { PlanAssignmentIntervalCreationInformation } from "./planassignmentintervals";
 
 /**
  * Represents a collection of plan assignment objects
@@ -61,7 +62,7 @@ export interface PlanAssignmentCreationInformation {
     /**
      * Gets or sets an enumerator that iterates through a collection of time intervals
      */
-    intervals?: any[]; // TODO: PlanAssignmentIntervalCreationInformation[]
+    intervals?: PlanAssignmentIntervalCreationInformation[];
 
     /**
      * Gets or sets the GUID of the resource
