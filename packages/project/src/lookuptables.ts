@@ -107,6 +107,9 @@ export interface LookupMask {
     separator?: string;
 }
 
+/**
+ * Specifies the mask sequence, which is the type of data for a lookup table
+ */
 export enum LookupTableMaskSequence {
 
     /**
@@ -155,6 +158,9 @@ export enum LookupTableMaskSequence {
     FLAG,
 }
 
+/**
+ * Specifies the sort order for a lookup table
+ */
 export enum LookupTableSortOrder {
 
     /**

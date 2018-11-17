@@ -98,6 +98,9 @@ export interface TaskLinkCreationInformation {
     startId: string;
 }
 
+/**
+ * Specifies the type of dependency to establish between two tasks
+ */
 export enum DependencyType {
 
     /**

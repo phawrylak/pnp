@@ -70,6 +70,9 @@ export interface PlanAssignmentCreationInformation {
     resourceId?: string;
 }
 
+/**
+ * Specifies how resources are booked for assignments
+ */
 export enum BookingType {
 
     /**

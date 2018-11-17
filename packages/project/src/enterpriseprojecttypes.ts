@@ -4,6 +4,7 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { ProjectDetailPageCreationInformation } from "./projectdetailpages";
 
 /**
  * Represents a collection of EnterpriseProjectType (EPT) objects
@@ -97,7 +98,7 @@ export interface EnterpriseProjectTypeCreationInformation {
     /**
      * Gets or sets the project detail page that is used as the first page in the workflow for an enterprise project type
      */
-    projectDetailPages?: any[]; // TODO: ProjectDetailPageCreationInformation[]
+    projectDetailPages?: ProjectDetailPageCreationInformation[];
 
     /**
      * Gets or sets the GUID of the project plan template that was created with an EPT
@@ -107,7 +108,7 @@ export interface EnterpriseProjectTypeCreationInformation {
     /**
      * Gets or sets the site creation option for an EPT
      */
-    siteCreationOption?: number; // TODO: enum?
+    siteCreationOption?: EnterpriseProjectTypeSiteCreationOptions;
 
     /**
      * Gets or sets the site creation URL for an EPT
@@ -138,4 +139,30 @@ export interface EnterpriseProjectTypeCreationInformation {
      * Gets or sets the name of the project site template that is associated with an EPT
      */
     workspaceTemplateName?: string;
+}
+
+/**
+ * Specifies how project sites should be created for an enterprise project type (EPT)
+ */
+export enum EnterpriseProjectTypeSiteCreationOptions {
+
+    /**
+     * The project site creation is not specified for the EPT
+     */
+    NotSpecified,
+
+    /**
+     * Allow users to choose on publish whether project site should be created
+     */
+    AskOnPublish,
+
+    /**
+     * Create project site on first publish
+     */
+    CreateOnFirstPublish,
+
+    /**
+     * Do not create a project site
+     */
+    None,
 }

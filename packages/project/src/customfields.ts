@@ -155,6 +155,9 @@ export interface CustomFieldCreationInformation {
     useFieldForMatching?: boolean;
 }
 
+/**
+ * Specifies the type for an enterprise custom field
+ */
 export enum CustomFieldType {
 
     /**
