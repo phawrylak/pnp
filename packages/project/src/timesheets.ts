@@ -32,7 +32,7 @@ export class TimeSheet extends ProjectQueryableInstance {
      *
      * @param comment A comment on the timesheet
      */
-    public submit(comment?: string): Promise<void> {
+    public submit(comment: string): Promise<void> {
         return this.clone(TimeSheet, "Submit").postCore({ body: jsS({ comment: comment }) });
     }
 }
