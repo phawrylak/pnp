@@ -28,14 +28,14 @@ export class QueueJobCollection extends ProjectQueryableCollection {
 export class QueueJob extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the project that is queued
      */
     public get project(): Project {
         return new DraftProject(this, "Project");
     }
 
     /**
-     * TODO
+     * Gets the resource that submitted the queue job
      */
     public get submitter(): User {
         return new User(this, "Submitter");

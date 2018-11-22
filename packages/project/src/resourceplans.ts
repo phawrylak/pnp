@@ -11,7 +11,7 @@ import { PlanAssignmentCollection } from "./planassignments";
 export class ResourcePlan extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets a collection of PlanAssignment objects that are associated with the resource plan
      */
     public get assignments(): PlanAssignmentCollection {
         return new PlanAssignmentCollection(this, "Assignments");

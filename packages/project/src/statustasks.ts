@@ -8,14 +8,14 @@ import { User } from "./users";
 export class StatusTask extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the collection of custom fields that have values set for the status task
      */
     public get customFields(): CustomFieldCollection {
         return new CustomFieldCollection(this, "CustomFields");
     }
 
     /**
-     * TODO
+     * Gets the status manager associated with the status task
      */
     public get statusManager(): User {
         return new User(this, "StatusManager");

@@ -83,7 +83,7 @@ export abstract class Project extends ProjectQueryableInstance {
     }
 
     /**
-     * TODO
+     * Gets the hidden project summary task
      */
     public get projectSummaryTask(): ProjectSummaryTask {
         return new ProjectSummaryTask(this, "ProjectSummaryTask");
@@ -110,14 +110,14 @@ export abstract class Project extends ProjectQueryableInstance {
 export class PublishedProject extends Project {
 
     /**
-     * TODO
+     * Gets the collection of assignments in the project
      */
     public get assignments(): PublishedAssignmentCollection {
         return new PublishedAssignmentCollection(this, "Assignments");
     }
 
     /**
-     * TODO
+     * Gets the project calendar
      */
     public get calendar(): Calendar {
         return new Calendar(this, "Calendar");
@@ -131,28 +131,28 @@ export class PublishedProject extends Project {
     }
 
     /**
-     * TODO
+     * Gets a PublishedProject object that includes custom fields
      */
     public get includeCustomFields(): PublishedProject {
         return new PublishedProject(this, "IncludeCustomFields");
     }
 
     /**
-     * TODO
+     * Gets the owner of the project
      */
     public get owner(): User {
         return new User(this, "Owner");
     }
 
     /**
-     * TODO
+     * Gets the collection of resources for a project
      */
     public get projectResources(): PublishedProjectResourceCollection {
         return new PublishedProjectResourceCollection(this, "ProjectResources");
     }
 
     /**
-     * TODO
+     * Gets the collection of task links for the project
      */
     public get taskLinks(): PublishedTaskLinkCollection {
         return new PublishedTaskLinkCollection(this, "TaskLinks");
@@ -199,42 +199,42 @@ export class PublishedProject extends Project {
 export class DraftProject extends Project {
 
     /**
-     * TODO
+     * Gets the collection of assignments for a project
      */
     public get assignments(): DraftAssignmentCollection {
         return new DraftAssignmentCollection(this, "Assignments");
     }
 
     /**
-     * TODO
+     * Gets a Project Server calendar
      */
     public get calendar(): Calendar {
         return new Calendar(this, "Calendar");
     }
 
     /**
-     * TODO
+     * Gets a DraftProject object that includes custom fields
      */
     public get includeCustomFields(): DraftProject {
         return new DraftProject(this, "IncludeCustomFields");
     }
 
     /**
-     * TODO
+     * Gets the project owner
      */
     public get owner(): User {
         return new User(this, "Owner");
     }
 
     /**
-     * TODO
+     * Gets the collection of resources for a project
      */
     public get projectResources(): DraftProjectResourceCollection {
         return new DraftProjectResourceCollection(this, "ProjectResources");
     }
 
     /**
-     * TODO
+     * Gets the collection of draft task link objects for the project
      */
     public get taskLinks(): DraftTaskLinkCollection {
         return new DraftTaskLinkCollection(this, "TaskLinks");

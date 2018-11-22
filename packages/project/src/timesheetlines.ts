@@ -6,7 +6,7 @@ import {
 import { CommandResult } from "./types";
 import { PublishedAssignment } from "./assignments";
 import { TimeSheet } from "./timesheets";
-import { TimeSheetWork } from "./timesheetworks";
+import { TimeSheetWorkCollection } from "./timesheetworks";
 
 /**
  * Represents a collection of timesheet lines
@@ -41,24 +41,24 @@ export class TimeSheetLineCollection extends ProjectQueryableCollection {
 export class TimeSheetLine extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the assignment that is associated with the timesheet line
      */
     public get assignment(): PublishedAssignment {
         return new PublishedAssignment(this, "Assignment");
     }
 
     /**
-     * TODO
+     * Gets the timesheet that is associated with the timesheet line
      */
     public get timeSheet(): TimeSheet {
         return new TimeSheet(this, "TimeSheet");
     }
 
     /**
-     * TODO
+     * Gets the actual work on the timesheet
      */
-    public get work(): TimeSheetWork {
-        return new TimeSheetWork(this, "Work");
+    public get work(): TimeSheetWorkCollection {
+        return new TimeSheetWorkCollection(this, "Work");
     }
 
     /**

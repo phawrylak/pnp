@@ -40,14 +40,14 @@ export class StageDetailPageCollection extends ProjectQueryableCollection {
 export class StageDetailPage extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the PDP in a workflow stage
      */
     public get page(): ProjectDetailPage {
         return new ProjectDetailPage(this, "Page");
     }
 
     /**
-     * TODO
+     * Gets a link to the related workflow stage for the PDP
      */
     public get stage(): Stage {
         return new Stage(this, "Stage");

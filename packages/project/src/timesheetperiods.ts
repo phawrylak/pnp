@@ -30,7 +30,7 @@ export class TimeSheetPeriodCollection extends ProjectQueryableCollection {
 export class TimeSheetPeriod extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the timesheet that is associated with the timesheet period
      */
     public get timeSheet(): TimeSheet {
         return new TimeSheet(this, "TimeSheet");

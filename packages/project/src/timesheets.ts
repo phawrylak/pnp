@@ -10,28 +10,28 @@ import { User } from "./users";
 export class TimeSheet extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the timesheet creator
      */
     public get creator(): User {
         return new User(this, "Creator");
     }
 
     /**
-     * TODO
+     * Gets the collection of lines in the timesheet
      */
     public get lines(): TimeSheetLineCollection {
         return new TimeSheetLineCollection(this, "Lines");
     }
 
     /**
-     * TODO
+     * Gets the timesheet manager
      */
     public get manager(): User {
         return new User(this, "Manager");
     }
 
     /**
-     * TODO
+     * Gets the timesheet period
      */
     public get period(): TimeSheetPeriod {
         return new TimeSheetPeriod(this, "Period");

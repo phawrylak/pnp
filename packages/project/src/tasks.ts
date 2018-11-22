@@ -61,14 +61,14 @@ export class DraftTaskCollection extends ProjectQueryableCollection {
 export abstract class Task extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the collection of custom fields for the task
      */
     public get customFields(): CustomFieldCollection {
         return new CustomFieldCollection(this, "CustomFields");
     }
 
     /**
-     * TODO
+     * Gets a project that has been inserted into the master project
      */
     public get subProject(): PublishedProject {
         return new PublishedProject(this, "SubProject");
@@ -81,42 +81,42 @@ export abstract class Task extends ProjectQueryableInstance {
 export class PublishedTask extends Task {
 
     /**
-     * TODO
+     * Gets the collection of assignments for the task
      */
     public get assignments(): PublishedAssignmentCollection {
         return new PublishedAssignmentCollection(this, "Assignments");
     }
 
     /**
-     * TODO
+     * Gets the task calendar
      */
     public get calendar(): Calendar {
         return new Calendar(this, "Calendar");
     }
 
     /**
-     * TODO
+     * Gets the parent task link
      */
     public get parent(): PublishedTask {
         return new PublishedTask(this, "Parent");
     }
 
     /**
-     * TODO
+     * Gets the links to predecessor tasks on which the task depends, before the current task can be started or finished
      */
     public get predecessors(): PublishedTaskLinkCollection {
         return new PublishedTaskLinkCollection(this, "Predecessors");
     }
 
     /**
-     * TODO
+     * Gets the status manager associated with the task
      */
     public get statusManager(): User {
         return new User(this, "StatusManager");
     }
 
     /**
-     * TODO
+     * Gets a collection of links to tasks that depend on the current task
      */
     public get successors(): PublishedTaskLinkCollection {
         return new PublishedTaskLinkCollection(this, "Successors");
@@ -129,42 +129,42 @@ export class PublishedTask extends Task {
 export class DraftTask extends Task {
 
     /**
-     * TODO
+     * Gets the assignments for a task
      */
     public get assignments(): DraftAssignmentCollection {
         return new DraftAssignmentCollection(this, "Assignments");
     }
 
     /**
-     * TODO
+     * Gets the task calendar
      */
     public get calendar(): Calendar {
         return new Calendar(this, "Calendar");
     }
 
     /**
-     * TODO
+     * Gets the parent task
      */
     public get parent(): DraftTask {
         return new DraftTask(this, "Parent");
     }
 
     /**
-     * TODO
+     * Gets the links to the predecessor tasks that the current task depends on
      */
     public get predecessors(): DraftTaskLinkCollection {
         return new DraftTaskLinkCollection(this, "Predecessors");
     }
 
     /**
-     * TODO
+     * Gets the status manager associated with the task
      */
     public get statusManager(): User {
         return new User(this, "StatusManager");
     }
 
     /**
-     * TODO
+     * Gets links to tasks that depend on the current task
      */
     public get successors(): DraftTaskLinkCollection {
         return new DraftTaskLinkCollection(this, "Successors");
@@ -177,7 +177,7 @@ export class DraftTask extends Task {
 }
 
 /**
- * TODO
+ * Represents a hidden project summary task
  */
 export class ProjectSummaryTask extends Task {
 }

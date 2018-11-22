@@ -44,28 +44,28 @@ export class StageCollection extends ProjectQueryableCollection {
 export class Stage extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the collection of all custom field objects that have values set for the stage
      */
     public get customFields(): StageCustomFieldCollection {
         return new StageCustomFieldCollection(this, "CustomFields");
     }
 
     /**
-     * TODO
+     * Gets the phase that contains the stage
      */
     public get phase(): Phase {
         return new Phase(this, "Phase");
     }
 
     /**
-     * TODO
+     * Gets a collection of project detail pages that are associated with the stage
      */
     public get projectDetailPages(): StageDetailPageCollection {
         return new StageDetailPageCollection(this, "ProjectDetailPages");
     }
 
     /**
-     * TODO
+     * Gets the workflow status project detail page for the stage
      */
     public get workflowStatusPage(): ProjectDetailPage {
         return new ProjectDetailPage(this, "WorkflowStatusPage");

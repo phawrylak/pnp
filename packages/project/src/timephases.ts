@@ -7,7 +7,7 @@ import { StatusAssignmentCollection } from "./statusassignments";
 export class TimePhase extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the status of assignments associated with a timephase
      */
     public get assignments(): StatusAssignmentCollection {
         return new StatusAssignmentCollection(this, "Assignments");

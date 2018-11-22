@@ -39,7 +39,7 @@ export class StageCustomFieldCollection extends ProjectQueryableCollection {
 export class StageCustomField extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets a link to the Stage entity
      */
     public get stage(): Stage {
         return new Stage(this, "Stage");

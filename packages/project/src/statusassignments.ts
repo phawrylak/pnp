@@ -64,28 +64,28 @@ export class StatusAssignmentCollection extends ProjectQueryableCollection {
 export class StatusAssignment extends ProjectQueryableInstance {
 
     /**
-     * TODO
+     * Gets the collection of custom fields that have values set for the status assignment
      */
     public get customFields(): CustomFieldCollection {
         return new CustomFieldCollection(this, "CustomFields");
     }
 
     /**
-     * TODO
+     * Gets the project that contains the status assignment
      */
     public get project(): PublishedProject {
         return new PublishedProject(this, "Project");
     }
 
     /**
-     * TODO
+     * Gets the resource that is associated with the status assignment
      */
     public get resource(): EnterpriseResource {
         return new EnterpriseResource(this, "Resource");
     }
 
     /**
-     * TODO
+     * Gets the task that is associated with the status assignment
      */
     public get task(): StatusTask {
         return new StatusTask(this, "Task");

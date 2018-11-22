@@ -62,14 +62,14 @@ export abstract class TaskLink extends ProjectQueryableInstance {
 export class PublishedTaskLink extends TaskLink {
 
     /**
-     * TODO
+     * Gets the task at the end of the link
      */
     public get end(): PublishedTask {
         return new PublishedTask(this, "End");
     }
 
     /**
-     * TODO
+     * Gets the task at the start of the link
      */
     public get start(): PublishedTask {
         return new PublishedTask(this, "Start");
@@ -82,14 +82,14 @@ export class PublishedTaskLink extends TaskLink {
 export class DraftTaskLink extends TaskLink {
 
     /**
-     * TODO
+     * Gets the task at the end of the link
      */
     public get end(): DraftTask {
         return new DraftTask(this, "End");
     }
 
     /**
-     * TODO
+     * Gets the task at the start of the link
      */
     public get start(): DraftTask {
         return new DraftTask(this, "Start");

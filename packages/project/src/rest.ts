@@ -30,77 +30,77 @@ export class ProjectRest {
     constructor(protected _options: ConfigOptions = {}, protected _baseUrl = "") { }
 
     /**
-     * TODO
+     * Gets the collection of calendars for the Project Server instance
      */
     public get calendars(): CalendarCollection {
         return this.create(CalendarCollection);
     }
 
     /**
-     * TODO
+     * Gets the collection of enterprise custom field definitions in the Project Web App instance
      */
     public get customFields(): CustomFieldCollection {
         return this.create(CustomFieldCollection);
     }
 
     /**
-     * TODO
+     * Gets the collection of enterprise project types (EPTs) in the Project Web App instance
      */
     public get enterpriseProjectTypes(): EnterpriseProjectTypeCollection {
         return this.create(EnterpriseProjectTypeCollection);
     }
 
     /**
-     * TODO
+     * Gets the collection of enterprise resources in a Project Web App instance
      */
     public get enterpriseResources(): EnterpriseResourceCollection {
         return this.create(EnterpriseResourceCollection);
     }
 
     /**
-     * TODO
+     * Gets the types of Project Server entities that are exposed through the CSOM
      */
     public get entityTypes(): EntityTypes {
         return this.create(EntityTypes);
     }
 
     /**
-     * TODO
+     * Gets the collection of lookup table definitions in the Project Web App instance
      */
     public get lookupTables(): LookupTableCollection {
         return this.create(LookupTableCollection);
     }
 
     /**
-     * TODO
+     * Gets the collection of Project Server workflow phases in the Project Web App instance
      */
     public get phases(): PhaseCollection {
         return this.create(PhaseCollection);
     }
 
     /**
-     * TODO
+     * Gets a collection of project detail pages in the Project Server instance
      */
     public get projectDetailPages(): ProjectDetailPageCollection {
         return this.create(ProjectDetailPageCollection);
     }
 
     /**
-     * Gets projects
+     * Gets the collection of projects in the Project Web App instance
      */
     public get projects(): ProjectCollection {
         return this.create(ProjectCollection);
     }
 
     /**
-     * TODO
+     * Gets the collection of Project Server workflow stages in a Project Web App instance
      */
     public get stages(): StageCollection {
         return this.create(StageCollection);
     }
 
     /**
-     * TODO
+     * Gets a collection of time sheet periods
      */
     public get timeSheetPeriods(): TimeSheetPeriodCollection {
         return this.create(TimeSheetPeriodCollection);
