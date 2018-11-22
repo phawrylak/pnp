@@ -1,13 +1,16 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { CalendarExceptionCollection } from "./calendarexceptions";
 
 /**
  * Represents a collection of calendars objects
  */
+@defaultPath("_api/ProjectServer/Calendars")
 export class CalendarCollection extends ProjectQueryableCollection {
 
     /**
@@ -36,6 +39,13 @@ export class CalendarCollection extends ProjectQueryableCollection {
  * Represents a Project Server calendar
  */
 export class Calendar extends ProjectQueryableInstance {
+
+    /**
+     * Gets the collection of exceptions to base calendars
+     */
+    public get baseCalendarExceptions(): CalendarExceptionCollection {
+        return new CalendarExceptionCollection(this, "BaseCalendarExceptions");
+    }
 
     /**
      * Deletes the Calendar object

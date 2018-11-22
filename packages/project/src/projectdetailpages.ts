@@ -1,4 +1,5 @@
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
@@ -6,6 +7,7 @@ import {
 /**
  * Represents a collection of project detail pages (PDPs)
  */
+@defaultPath("_api/ProjectServer/ProjectDetailPages")
 export class ProjectDetailPageCollection extends ProjectQueryableCollection {
 
     /**

@@ -1,4 +1,5 @@
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
@@ -8,6 +9,7 @@ import { TimeSheet } from "./timesheets";
 /**
  * Represents a collection of TimeSheetPeriod objects
  */
+@defaultPath("_api/ProjectServer/TimeSheetPeriods")
 export class TimeSheetPeriodCollection extends ProjectQueryableCollection {
 
     /**
@@ -26,6 +28,13 @@ export class TimeSheetPeriodCollection extends ProjectQueryableCollection {
  * Represents a defined period of time on a timesheet
  */
 export class TimeSheetPeriod extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get timeSheet(): TimeSheet {
+        return new TimeSheet(this, "TimeSheet");
+    }
 
     /**
      * Creates a new TimeSheet object

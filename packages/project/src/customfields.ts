@@ -1,13 +1,18 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { EntityType } from "./entitytypes";
+import { LookupEntryCollection } from "./lookupentries";
+import { LookupTable } from "./lookuptables";
 
 /**
  * Represents a collection of CustomField objects
  */
+@defaultPath("_api/ProjectServer/CustomFields")
 export class CustomFieldCollection extends ProjectQueryableCollection {
 
     /**
@@ -47,6 +52,27 @@ export class CustomFieldCollection extends ProjectQueryableCollection {
  * Contains the properties and methods that are used to create an enterprise custom field
  */
 export class CustomField extends ProjectQueryableInstance {
+
+    /**
+     * Gets the type of entity (project, task, or resource) for the custom field
+     */
+    public get entityType(): EntityType {
+        return new EntityType(this, "EntityType");
+    }
+
+    /**
+     * Gets a collection of valid lookup table entries for this field
+     */
+    public get lookupEntries(): LookupEntryCollection {
+        return new LookupEntryCollection(this, "LookupEntries");
+    }
+
+    /**
+     * Gets the LookupTable object for a text custom field
+     */
+    public get lookupTable(): LookupTable {
+        return new LookupTable(this, "LookupTable");
+    }
 
     /**
      * Deletes the CustomField object

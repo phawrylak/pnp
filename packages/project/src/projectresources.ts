@@ -6,6 +6,13 @@ import {
 import { DraftProject } from "./projects";
 import { QueueJob } from "./queuejobs";
 import { CommandResult } from "./types";
+import {
+    DraftAssignmentCollection,
+    PublishedAssignmentCollection,
+} from "./assignments";
+import { CustomFieldCollection } from "./customfields";
+import { EnterpriseResource } from "./enterpriseresources";
+import { User } from "./users";
 
 /**
  * Represents a collection of resources in a published project
@@ -65,18 +72,60 @@ export class DraftProjectResourceCollection extends ProjectQueryableCollection {
  * Provides information about a project resource
  */
 export abstract class ProjectResource extends ProjectQueryableInstance {
+
+    /**
+     * Gets a collection of custom fields that have values set for this project resource
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * Gets identification information for the project resource
+     */
+    public get enterpriseResource(): EnterpriseResource {
+        return new EnterpriseResource(this, "EnterpriseResource");
+    }
 }
 
 /**
  * Represents an enterprise resource that is published on Project Server
  */
 export class PublishedProjectResource extends ProjectResource {
+
+    /**
+     * Gets the assignments that are associated with the resource
+     */
+    public get assignments(): PublishedAssignmentCollection {
+        return new PublishedAssignmentCollection(this, "Assignments");
+    }
+
+    /**
+     * Gets the default assignment owner
+     */
+    public get defaultAssignmentOwner(): User {
+        return new User(this, "DefaultAssignmentOwner");
+    }
 }
 
 /**
  * Represents an enterprise resource in a checked-out project
  */
 export class DraftProjectResource extends ProjectResource {
+
+    /**
+     * Gets the assignments that are associated with the resource
+     */
+    public get assignments(): DraftAssignmentCollection {
+        return new DraftAssignmentCollection(this, "Assignments");
+    }
+
+    /**
+     * Gets the default assignment owner
+     */
+    public get defaultAssignmentOwner(): User {
+        return new User(this, "DefaultAssignmentOwner");
+    }
 
     /**
      * Deletes the DraftProjectResource object

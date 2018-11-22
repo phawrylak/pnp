@@ -1,13 +1,16 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { StageCollection } from "./stages";
 
 /**
  * Represents a collection of workflow Phase objects
  */
+@defaultPath("_api/ProjectServer/Phases")
 export class PhaseCollection extends ProjectQueryableCollection {
 
     /**
@@ -36,6 +39,13 @@ export class PhaseCollection extends ProjectQueryableCollection {
  * Represents a collection of stages that are grouped to identify a common set of activities in the project life cycle
  */
 export class Phase extends ProjectQueryableInstance {
+
+    /**
+     * Gets a collection of stages for a phase
+     */
+    public get stages(): StageCollection {
+        return new StageCollection(this, "Stages");
+    }
 
     /**
      * Deletes the Phase object

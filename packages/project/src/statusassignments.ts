@@ -4,7 +4,10 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
-import { StatusTaskCreationInformation } from "./statustasks";
+import { CustomFieldCollection } from "./customfields";
+import { EnterpriseResource } from "./enterpriseresources";
+import { PublishedProject } from "./projects";
+import { StatusTask, StatusTaskCreationInformation } from "./statustasks";
 import { TimePhase } from "./timephases";
 
 /**
@@ -59,6 +62,34 @@ export class StatusAssignmentCollection extends ProjectQueryableCollection {
  * Provides an object that is an assignment in a status update
  */
 export class StatusAssignment extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * TODO
+     */
+    public get project(): PublishedProject {
+        return new PublishedProject(this, "Project");
+    }
+
+    /**
+     * TODO
+     */
+    public get resource(): EnterpriseResource {
+        return new EnterpriseResource(this, "Resource");
+    }
+
+    /**
+     * TODO
+     */
+    public get task(): StatusTask {
+        return new StatusTask(this, "Task");
+    }
 
     /**
      * Deletes the StatusAssignment object

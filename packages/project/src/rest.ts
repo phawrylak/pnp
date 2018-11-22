@@ -3,8 +3,18 @@ import {
     ProjectQueryable,
     ProjectQueryableConstructor,
 } from "./projectqueryable";
+import { CalendarCollection } from "./calendars";
+import { CustomFieldCollection } from "./customfields";
+import { EnterpriseProjectTypeCollection } from "./enterpriseprojecttypes";
+import { EnterpriseResourceCollection } from "./enterpriseresources";
+import { EntityTypes } from "./entitytypes";
+import { LookupTableCollection } from "./lookuptables";
+import { PhaseCollection } from "./phases";
+import { ProjectDetailPageCollection } from "./projectdetailpages";
 import { ProjectCollection } from "./projects";
 import { JobState, QueueJob } from "./queuejobs";
+import { StageCollection } from "./stages";
+import { TimeSheetPeriodCollection } from "./timesheetperiods";
 
 /**
  * Root of the Project REST module
@@ -20,10 +30,80 @@ export class ProjectRest {
     constructor(protected _options: ConfigOptions = {}, protected _baseUrl = "") { }
 
     /**
+     * TODO
+     */
+    public get calendars(): CalendarCollection {
+        return this.create(CalendarCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get customFields(): CustomFieldCollection {
+        return this.create(CustomFieldCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get enterpriseProjectTypes(): EnterpriseProjectTypeCollection {
+        return this.create(EnterpriseProjectTypeCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get enterpriseResources(): EnterpriseResourceCollection {
+        return this.create(EnterpriseResourceCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get entityTypes(): EntityTypes {
+        return this.create(EntityTypes);
+    }
+
+    /**
+     * TODO
+     */
+    public get lookupTables(): LookupTableCollection {
+        return this.create(LookupTableCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get phases(): PhaseCollection {
+        return this.create(PhaseCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get projectDetailPages(): ProjectDetailPageCollection {
+        return this.create(ProjectDetailPageCollection);
+    }
+
+    /**
      * Gets projects
      */
     public get projects(): ProjectCollection {
         return this.create(ProjectCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get stages(): StageCollection {
+        return this.create(StageCollection);
+    }
+
+    /**
+     * TODO
+     */
+    public get timeSheetPeriods(): TimeSheetPeriodCollection {
+        return this.create(TimeSheetPeriodCollection);
     }
 
     /**

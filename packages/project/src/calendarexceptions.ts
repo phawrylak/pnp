@@ -4,6 +4,7 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { Calendar } from "./calendars";
 
 /**
  * Represents a collection of calendar exceptions
@@ -38,9 +39,22 @@ export class CalendarExceptionCollection extends ProjectQueryableCollection {
 export class CalendarException extends ProjectQueryableInstance {
 
     /**
+     * Gets the calendar that is associated with the exception
+     */
+    public get calendar(): Calendar {
+        return new Calendar(this, "Calendar");
+    }
+
+    /**
      * Deletes the CalendarException object
      */
     public delete = this._delete;
+}
+
+/**
+ * Represents the collection of base calendar exceptions
+ */
+export class BaseCalendarException extends CalendarException {
 }
 
 /**

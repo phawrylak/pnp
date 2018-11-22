@@ -1,15 +1,19 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
-import { StageCustomFieldCreationInformation } from "./stagecustomfields";
-import { StageDetailPageCreationInformation } from "./stagedetailpages";
+import { Phase } from "./phases";
+import { ProjectDetailPage } from "./projectdetailpages";
+import { StageCustomFieldCollection, StageCustomFieldCreationInformation } from "./stagecustomfields";
+import { StageDetailPageCollection, StageDetailPageCreationInformation } from "./stagedetailpages";
 
 /**
  * Represents a collection of workflow Stage objects
  */
+@defaultPath("_api/ProjectServer/Stages")
 export class StageCollection extends ProjectQueryableCollection {
 
     /**
@@ -38,6 +42,34 @@ export class StageCollection extends ProjectQueryableCollection {
  * Represents a stage in a project workflow
  */
 export class Stage extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get customFields(): StageCustomFieldCollection {
+        return new StageCustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * TODO
+     */
+    public get phase(): Phase {
+        return new Phase(this, "Phase");
+    }
+
+    /**
+     * TODO
+     */
+    public get projectDetailPages(): StageDetailPageCollection {
+        return new StageDetailPageCollection(this, "ProjectDetailPages");
+    }
+
+    /**
+     * TODO
+     */
+    public get workflowStatusPage(): ProjectDetailPage {
+        return new ProjectDetailPage(this, "WorkflowStatusPage");
+    }
 
     /**
      * Deletes the Stage object

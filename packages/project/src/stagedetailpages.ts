@@ -4,6 +4,8 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { ProjectDetailPage } from "./projectdetailpages";
+import { Stage } from "./stages";
 
 /**
  * Represents a collection of project detail pages (PDPs) that are visible in a workflow stage
@@ -36,6 +38,20 @@ export class StageDetailPageCollection extends ProjectQueryableCollection {
  * Represents a project detail page (PDP) for a workflow stage
  */
 export class StageDetailPage extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get page(): ProjectDetailPage {
+        return new ProjectDetailPage(this, "Page");
+    }
+
+    /**
+     * TODO
+     */
+    public get stage(): Stage {
+        return new Stage(this, "Stage");
+    }
 
     /**
      * Deletes the PDP for the workflow stage

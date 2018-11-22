@@ -4,9 +4,22 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
-import { QueueJob, QueueJobCollection } from "./queuejobs";
-import { DraftTaskCollection, PublishedTaskCollection } from "./tasks";
 import { CommandResult } from "./types";
+import { DraftAssignmentCollection, PublishedAssignmentCollection } from "./assignments";
+import { Calendar } from "./calendars";
+import { CustomFieldCollection } from "./customfields";
+import { EnterpriseProjectType } from "./enterpriseprojecttypes";
+import { Phase } from "./phases";
+import { DraftProjectResourceCollection, PublishedProjectResourceCollection } from "./projectresources";
+import { QueueJob, QueueJobCollection } from "./queuejobs";
+import { Stage } from "./stages";
+import { DraftTaskLinkCollection, PublishedTaskLinkCollection } from "./tasklinks";
+import {
+    DraftTaskCollection,
+    ProjectSummaryTask,
+    PublishedTaskCollection,
+} from "./tasks";
+import { User } from "./users";
 
 /**
  * Represents a collection of PublishedProject objects
@@ -42,10 +55,52 @@ export class ProjectCollection extends ProjectQueryableCollection {
 export abstract class Project extends ProjectQueryableInstance {
 
     /**
+     * Gets the enterprise resource who has the project checked out
+     */
+    public get checkedOutBy(): User {
+        return new User(this, "CheckedOutBy");
+    }
+
+    /**
+     * Gets the collection of project custom fields that have values set for the project
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * Gets the enterprise project type (EPT) for the project
+     */
+    public get enterpriseProjectType(): EnterpriseProjectType {
+        return new EnterpriseProjectType(this, "EnterpriseProjectType");
+    }
+
+    /**
+     * Gets the current workflow phase of the project
+     */
+    public get phase(): Phase {
+        return new Phase(this, "Phase");
+    }
+
+    /**
+     * TODO
+     */
+    public get projectSummaryTask(): ProjectSummaryTask {
+        return new ProjectSummaryTask(this, "ProjectSummaryTask");
+    }
+
+    /**
      * Gets the collection of Project Server Queue Service jobs that are associated with the project
      */
     public get queueJobs(): QueueJobCollection {
         return new QueueJobCollection(this, "QueueJobs");
+    }
+
+    /**
+     * Gets the current workflow stage of the project
+     */
+    public get stage(): Stage {
+        return new Stage(this, "Stage");
     }
 }
 
@@ -55,10 +110,52 @@ export abstract class Project extends ProjectQueryableInstance {
 export class PublishedProject extends Project {
 
     /**
+     * TODO
+     */
+    public get assignments(): PublishedAssignmentCollection {
+        return new PublishedAssignmentCollection(this, "Assignments");
+    }
+
+    /**
+     * TODO
+     */
+    public get calendar(): Calendar {
+        return new Calendar(this, "Calendar");
+    }
+
+    /**
      * Gets a DraftProject object if it is not already checked out
      */
     public get draft(): DraftProject {
         return new DraftProject(this, "Draft");
+    }
+
+    /**
+     * TODO
+     */
+    public get includeCustomFields(): PublishedProject {
+        return new PublishedProject(this, "IncludeCustomFields");
+    }
+
+    /**
+     * TODO
+     */
+    public get owner(): User {
+        return new User(this, "Owner");
+    }
+
+    /**
+     * TODO
+     */
+    public get projectResources(): PublishedProjectResourceCollection {
+        return new PublishedProjectResourceCollection(this, "ProjectResources");
+    }
+
+    /**
+     * TODO
+     */
+    public get taskLinks(): PublishedTaskLinkCollection {
+        return new PublishedTaskLinkCollection(this, "TaskLinks");
     }
 
     /**
@@ -100,6 +197,48 @@ export class PublishedProject extends Project {
  * Represents the draft version of a project, which is a project that is checked out
  */
 export class DraftProject extends Project {
+
+    /**
+     * TODO
+     */
+    public get assignments(): DraftAssignmentCollection {
+        return new DraftAssignmentCollection(this, "Assignments");
+    }
+
+    /**
+     * TODO
+     */
+    public get calendar(): Calendar {
+        return new Calendar(this, "Calendar");
+    }
+
+    /**
+     * TODO
+     */
+    public get includeCustomFields(): DraftProject {
+        return new DraftProject(this, "IncludeCustomFields");
+    }
+
+    /**
+     * TODO
+     */
+    public get owner(): User {
+        return new User(this, "Owner");
+    }
+
+    /**
+     * TODO
+     */
+    public get projectResources(): DraftProjectResourceCollection {
+        return new DraftProjectResourceCollection(this, "ProjectResources");
+    }
+
+    /**
+     * TODO
+     */
+    public get taskLinks(): DraftTaskLinkCollection {
+        return new DraftTaskLinkCollection(this, "TaskLinks");
+    }
 
     /**
      * Gets the collection of task objects for the project

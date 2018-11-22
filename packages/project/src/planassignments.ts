@@ -4,7 +4,12 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
-import { PlanAssignmentIntervalCreationInformation } from "./planassignmentintervals";
+import { CustomFieldCollection } from "./customfields";
+import { EnterpriseResource } from "./enterpriseresources";
+import {
+    PlanAssignmentIntervalCollection,
+    PlanAssignmentIntervalCreationInformation,
+} from "./planassignmentintervals";
 
 /**
  * Represents a collection of plan assignment objects
@@ -37,6 +42,27 @@ export class PlanAssignmentCollection extends ProjectQueryableCollection {
  * Provides information about an assignment in a project plan
  */
 export class PlanAssignment extends ProjectQueryableInstance {
+
+    /**
+     * Gets the collection of custom fields that have values set for a plan assignment
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * Gets the collection of plan assignment time intervals
+     */
+    public get intervals(): PlanAssignmentIntervalCollection {
+        return new PlanAssignmentIntervalCollection(this, "Intervals");
+    }
+
+    /**
+     * Gets a resource that is part of an organization's entire list of resources and that can be shared across projects
+     */
+    public get resource(): EnterpriseResource {
+        return new EnterpriseResource(this, "Resource");
+    }
 
     /**
      * Deletes the PlanAssignment object

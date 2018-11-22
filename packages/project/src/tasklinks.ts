@@ -4,6 +4,7 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { DraftTask, PublishedTask } from "./tasks";
 
 /**
  * Represents a collection of task links in a published project
@@ -59,12 +60,40 @@ export abstract class TaskLink extends ProjectQueryableInstance {
  * Represents a dependency relationship between the start and finish dates of two tasks
  */
 export class PublishedTaskLink extends TaskLink {
+
+    /**
+     * TODO
+     */
+    public get end(): PublishedTask {
+        return new PublishedTask(this, "End");
+    }
+
+    /**
+     * TODO
+     */
+    public get start(): PublishedTask {
+        return new PublishedTask(this, "Start");
+    }
 }
 
 /**
  * Creates an object to access the task links in a draft project
  */
 export class DraftTaskLink extends TaskLink {
+
+    /**
+     * TODO
+     */
+    public get end(): DraftTask {
+        return new DraftTask(this, "End");
+    }
+
+    /**
+     * TODO
+     */
+    public get start(): DraftTask {
+        return new DraftTask(this, "Start");
+    }
 
     /**
      * Deletes the DraftTaskLink object

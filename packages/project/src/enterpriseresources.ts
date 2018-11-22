@@ -1,13 +1,20 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { CalendarExceptionCollection } from "./calendarexceptions";
+import { Calendar } from "./calendars";
+import { CustomFieldCollection } from "./customfields";
+import { StatusAssignmentCollection } from "./statusassignments";
+import { User } from "./users";
 
 /**
  * Represents a collection of EnterpriseResource objects
  */
+@defaultPath("_api/ProjectServer/EnterpriseResources")
 export class EnterpriseResourceCollection extends ProjectQueryableCollection {
 
     /**
@@ -36,6 +43,55 @@ export class EnterpriseResourceCollection extends ProjectQueryableCollection {
  * Represents a resource that is managed by Project Server in a project
  */
 export class EnterpriseResource extends ProjectQueryableInstance {
+
+    /**
+     * Gets a collection of status assignments for an enterprise resource
+     */
+    public get assignments(): StatusAssignmentCollection {
+        return new StatusAssignmentCollection(this, "Assignments");
+    }
+
+    /**
+     * Gets a base calendar for an enterprise resource
+     */
+    public get baseCalendar(): Calendar {
+        return new Calendar(this, "BaseCalendar");
+    }
+
+    /**
+     * Gets a collection of custom fields that have values set for an enterprise resource
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * Gets the default user that is entered into the Assignment Owner field when an enterprise resource is assigned to a task
+     */
+    public get defaultAssignmentOwner(): User {
+        return new User(this, "DefaultAssignmentOwner");
+    }
+
+    /**
+     * Gets a collection of exceptions to the base calendar that are specific to an enterprise resource
+     */
+    public get resourceCalendarExceptions(): CalendarExceptionCollection {
+        return new CalendarExceptionCollection(this, "ResourceCalendarExceptions");
+    }
+
+    /**
+     * Gets the manager who reviews and approves the timesheet of an enterprise resource
+     */
+    public get timesheetManager(): User {
+        return new User(this, "TimesheetManager");
+    }
+
+    /**
+     * Gets the SharePoint user that is linked to the Enterprise Resource
+     */
+    public get user(): User {
+        return new User(this, "User");
+    }
 
     /**
      * Deletes the EnterpriseResource object

@@ -4,6 +4,7 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { Stage } from "./stages";
 
 /**
  * Represents a collection of StageCustomField objects, which are custom fields in a workflow stage
@@ -36,6 +37,13 @@ export class StageCustomFieldCollection extends ProjectQueryableCollection {
  * Represents a custom field for a project stage
  */
 export class StageCustomField extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get stage(): Stage {
+        return new Stage(this, "Stage");
+    }
 
     /**
      * Deletes the StageCustomField object

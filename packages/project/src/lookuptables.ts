@@ -1,14 +1,19 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
-import { LookupEntryCreationInformation } from "./lookupentries";
+import {
+    LookupEntryCollection,
+    LookupEntryCreationInformation,
+} from "./lookupentries";
 
 /**
  * Represents a collection of LookupTable objects
  */
+@defaultPath("_api/ProjectServer/LookupTables")
 export class LookupTableCollection extends ProjectQueryableCollection {
 
     /**
@@ -48,6 +53,13 @@ export class LookupTableCollection extends ProjectQueryableCollection {
  * Represents a lookup table
  */
 export class LookupTable extends ProjectQueryableInstance {
+
+    /**
+     * Gets the collection of entries in the lookup table
+     */
+    public get entries(): LookupEntryCollection {
+        return new LookupEntryCollection(this, "Entries");
+    }
 
     /**
      * Deletes the LookupTable object

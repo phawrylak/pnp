@@ -3,11 +3,19 @@ import { ProjectQueryableInstance } from "./projectqueryable";
 import { DraftProject } from "./projects";
 import { QueueJob } from "./queuejobs";
 import { CommandResult } from "./types";
+import { PlanAssignmentCollection } from "./planassignments";
 
 /**
  * Represents a high-level look at what resources might be needed for a project
  */
 export class ResourcePlan extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get assignments(): PlanAssignmentCollection {
+        return new PlanAssignmentCollection(this, "Assignments");
+    }
 
     /**
     * Updates this resource plan with the supplied properties

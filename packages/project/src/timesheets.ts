@@ -1,10 +1,41 @@
 import { jsS, TypedHash } from "@pnp/common";
 import { ProjectQueryableInstance } from "./projectqueryable";
+import { TimeSheetLineCollection } from "./timesheetlines";
+import { TimeSheetPeriod } from "./timesheetperiods";
+import { User } from "./users";
 
 /**
  * Contains the methods and properties for managing a timesheet
  */
 export class TimeSheet extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get creator(): User {
+        return new User(this, "Creator");
+    }
+
+    /**
+     * TODO
+     */
+    public get lines(): TimeSheetLineCollection {
+        return new TimeSheetLineCollection(this, "Lines");
+    }
+
+    /**
+     * TODO
+     */
+    public get manager(): User {
+        return new User(this, "Manager");
+    }
+
+    /**
+     * TODO
+     */
+    public get period(): TimeSheetPeriod {
+        return new TimeSheetPeriod(this, "Period");
+    }
 
     /**
     * Updates this timesheet with the supplied properties

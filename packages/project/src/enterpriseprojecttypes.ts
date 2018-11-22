@@ -1,14 +1,19 @@
 import { jsS } from "@pnp/common";
 import {
+    defaultPath,
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
-import { ProjectDetailPageCreationInformation } from "./projectdetailpages";
+import {
+    ProjectDetailPageCollection,
+    ProjectDetailPageCreationInformation,
+} from "./projectdetailpages";
 
 /**
  * Represents a collection of EnterpriseProjectType (EPT) objects
  */
+@defaultPath("_api/ProjectServer/EnterpriseProjectTypes")
 export class EnterpriseProjectTypeCollection extends ProjectQueryableCollection {
 
     /**
@@ -37,6 +42,13 @@ export class EnterpriseProjectTypeCollection extends ProjectQueryableCollection 
  * Creates an object that represents an enterprise project type
  */
 export class EnterpriseProjectType extends ProjectQueryableInstance {
+
+    /**
+     * Gets the collection of enterprise project detail pages
+     */
+    public get projectDetailPages(): ProjectDetailPageCollection {
+        return new ProjectDetailPageCollection(this, "ProjectDetailPages");
+    }
 
     /**
      * Deletes the current EnterpriseProjectType object

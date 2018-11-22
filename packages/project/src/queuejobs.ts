@@ -2,6 +2,8 @@ import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
 } from "./projectqueryable";
+import { DraftProject, Project } from "./projects";
+import { User } from "./users";
 
 /**
  * Represents a collection of QueueJob objects
@@ -24,6 +26,20 @@ export class QueueJobCollection extends ProjectQueryableCollection {
  * Queues a project for publishing
  */
 export class QueueJob extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get project(): Project {
+        return new DraftProject(this, "Project");
+    }
+
+    /**
+     * TODO
+     */
+    public get submitter(): User {
+        return new User(this, "Submitter");
+    }
 
     /**
      * Cancels the queue job

@@ -4,6 +4,10 @@ import {
     ProjectQueryableInstance,
 } from "./projectqueryable";
 import { CommandResult } from "./types";
+import { CustomFieldCollection } from "./customfields";
+import { DraftProjectResource, PublishedProjectResource } from "./projectresources";
+import { DraftTask, PublishedTask } from "./tasks";
+import { User } from "./users";
 
 /**
  * Represents a collection of published assignments
@@ -53,18 +57,81 @@ export class DraftAssignmentCollection extends ProjectQueryableCollection {
  * Contains the common properties for draft assignments and published assignments
  */
 export abstract class Assignment extends ProjectQueryableInstance {
+
+    /**
+     * Gets the collection of custom fields for the assignment
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
 }
 
 /**
  * Represents the assignment that is in a published project
  */
 export class PublishedAssignment extends Assignment {
+
+    /**
+     * Gets the user who is responsible for entering status for the current assignment
+     */
+    public get owner(): User {
+        return new User(this, "Owner");
+    }
+
+    /**
+     * Gets the parent assignment link
+     */
+    public get parent(): PublishedAssignment {
+        return new PublishedAssignment(this, "Parent");
+    }
+
+    /**
+     * Gets the resource that is associated with the assignment
+     */
+    public get resource(): PublishedProjectResource {
+        return new PublishedProjectResource(this, "Resource");
+    }
+
+    /**
+     * Gets the task to which the assignment belongs
+     */
+    public get task(): PublishedTask {
+        return new PublishedTask(this, "Task");
+    }
 }
 
 /**
  * Enables the creation of a draft assignment for a project
  */
 export class DraftAssignment extends Assignment {
+
+    /**
+     * Gets the user who is responsible for entering status for the current assignment
+     */
+    public get owner(): User {
+        return new User(this, "Owner");
+    }
+
+    /**
+     * Gets the parent assignment link
+     */
+    public get parent(): DraftAssignment {
+        return new DraftAssignment(this, "Parent");
+    }
+
+    /**
+     * Gets the resource that is associated with the assignment
+     */
+    public get resource(): DraftProjectResource {
+        return new DraftProjectResource(this, "Resource");
+    }
+
+    /**
+     * Gets the task to which the assignment belongs
+     */
+    public get task(): DraftTask {
+        return new DraftTask(this, "Task");
+    }
 
     /**
      * Deletes the draft assignment

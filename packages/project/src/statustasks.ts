@@ -1,9 +1,25 @@
 import { ProjectQueryableInstance } from "./projectqueryable";
+import { CustomFieldCollection } from "./customfields";
+import { User } from "./users";
 
 /**
  * Provides an object that keeps track of the progress of a task
  */
 export class StatusTask extends ProjectQueryableInstance {
+
+    /**
+     * TODO
+     */
+    public get customFields(): CustomFieldCollection {
+        return new CustomFieldCollection(this, "CustomFields");
+    }
+
+    /**
+     * TODO
+     */
+    public get statusManager(): User {
+        return new User(this, "StatusManager");
+    }
 }
 
 /**
