@@ -1,4 +1,5 @@
-import { jsS } from "@pnp/common";
+import { jsS, TypedHash } from "@pnp/common";
+import { wrap } from "./utils/wrap";
 import {
     defaultPath,
     ProjectQueryableCollection,
@@ -44,7 +45,7 @@ export class LookupTableCollection extends ProjectQueryableCollection {
      * @param parameters The properties of the lookup table to create
      */
     public async add(parameters: LookupTableCreationInformation): Promise<CommandResult<LookupTable>> {
-        const data = await this.postCore({ body: jsS(parameters) });
+        const data = await this.clone(LookupTableCollection, "Add").postCore({ body: jsS(wrap({parameters: parameters})) });
         return { data: data, instance: this.getById(data.Id) };
     }
 }
@@ -65,6 +66,15 @@ export class LookupTable extends ProjectQueryableInstance {
      * Deletes the LookupTable object
      */
     public delete = this._delete;
+
+    /**
+    * Updates this lookup table with the supplied properties
+    *
+    * @param properties A plain object of property names and values to update the lookup table
+    */
+    public update = this._update<void, TypedHash<any>, any>(
+        "PS.LookupTable",
+        _ => null);
 }
 
 /**
@@ -75,27 +85,27 @@ export interface LookupTableCreationInformation {
     /**
      * Gets or sets the collection of entries in the lookup table
      */
-    entries?: LookupEntryCreationInformation[];
+    Entries: LookupEntryCreationInformation[];
 
     /**
      * Gets or sets the GUID of the lookup table
      */
-    id?: string;
+    Id?: string;
 
     /**
      * Gets or sets the collection of mask definitions for the levels of a hierarchical lookup table
      */
-    masks?: LookupMask[];
+    Masks: LookupMask[];
 
     /**
      * Gets or sets the name of the lookup table
      */
-    name: string;
+    Name: string;
 
     /**
      * Gets or sets the sort order for the entries in the table
      */
-    sortOrder?: LookupTableSortOrder;
+    SortOrder?: LookupTableSortOrder;
 }
 
 /**
@@ -106,17 +116,17 @@ export interface LookupMask {
     /**
      * Gets or sets the number of characters in the mask sequence
      */
-    length?: number;
+    Length?: number;
 
     /**
      * Gets or sets the mask segment type
      */
-    maskType?: LookupTableMaskSequence;
+    MaskType?: LookupTableMaskSequence;
 
     /**
      * Gets or sets the separator string that is used in the concatenation of parent table entry values at each level of the table mask
      */
-    separator?: string;
+    Separator: string;
 }
 
 /**

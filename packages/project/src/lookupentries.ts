@@ -1,4 +1,5 @@
-import { jsS } from "@pnp/common";
+import { jsS, TypedHash } from "@pnp/common";
+import { wrap } from "./utils/wrap";
 import {
     ProjectQueryableCollection,
     ProjectQueryableInstance,
@@ -38,7 +39,7 @@ export class LookupEntryCollection extends ProjectQueryableCollection {
      * @param parameters The properties of the lookup entry to create
      */
     public async add(parameters: LookupEntryCreationInformation): Promise<CommandResult<LookupEntry>> {
-        const data = await this.postCore({ body: jsS(parameters) });
+        const data = await this.clone(LookupEntryCollection, "Add").postCore({ body: jsS(wrap({parameters: parameters})) });
         return { data: data, instance: this.getById(data.Id) };
     }
 }
@@ -52,6 +53,15 @@ export class LookupEntry extends ProjectQueryableInstance {
      * Deletes the LookupEntry object
      */
     public delete = this._delete;
+
+    /**
+    * Updates this lookup entry with the supplied properties
+    *
+    * @param properties A plain object of property names and values to update the lookup entry
+    */
+    public update = this._update<void, TypedHash<any>, any>(
+        "PS.LookupEntry",
+        _ => null);
 }
 
 /**
@@ -62,27 +72,27 @@ export interface LookupEntryCreationInformation {
     /**
      * Gets or sets the description of the lookup table entry
      */
-    description?: string;
+    Description?: string;
 
     /**
      * Gets or sets the GUID of the lookup table entry
      */
-    id?: string;
+    Id?: string;
 
     /**
      * Gets or sets the GUID of the parent lookup table entry in a hierarchical text lookup table
      */
-    parentId?: string;
+    ParentId?: string;
 
     /**
      * Gets or sets an index number for the lookup table entry
      */
-    sortIndex?: number;
+    SortIndex: string;
 
     /**
      * Gets or sets the value of the lookup table entry
      */
-    value?: LookupEntryValue;
+    Value: LookupEntryValue;
 }
 
 /**
@@ -93,20 +103,20 @@ export interface LookupEntryValue {
     /**
      * Gets or sets a date and time entry value
      */
-    dateValue?: Date;
+    DateValue?: Date;
 
     /**
      * Gets or sets a duration entry value as a string
      */
-    durationValue?: string;
+    DurationValue?: string;
 
     /**
      * Gets or sets a decimal number entry value
      */
-    numberValue?: number;
+    NumberValue?: number;
 
     /**
      * Gets or sets a text entry value
      */
-    textValue?: string;
+    TextValue?: string;
 }

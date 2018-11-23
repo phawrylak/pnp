@@ -1,4 +1,5 @@
-import { jsS } from "@pnp/common";
+import { jsS, TypedHash } from "@pnp/common";
+import { wrap } from "./utils/wrap";
 import {
     defaultPath,
     ProjectQueryableCollection,
@@ -34,7 +35,7 @@ export class EnterpriseResourceCollection extends ProjectQueryableCollection {
      * @param parameters The properties of the enterprise resource to create
      */
     public async add(parameters: EnterpriseResourceCreationInformation): Promise<CommandResult<EnterpriseResource>> {
-        const data = await this.postCore({ body: jsS(parameters) });
+        const data = await this.clone(EnterpriseResourceCollection, "Add").postCore({ body: jsS(wrap({parameters: parameters})) });
         return { data: data, instance: this.getById(data.Id) };
     }
 }
@@ -99,6 +100,15 @@ export class EnterpriseResource extends ProjectQueryableInstance {
     public delete = this._delete;
 
     /**
+    * Updates this enterprise resource with the supplied properties
+    *
+    * @param properties A plain object of property names and values to update the enterprise resource
+    */
+    public update = this._update<void, TypedHash<any>, any>(
+        "PS.EnterpriseResource",
+        _ => null);
+
+    /**
      * Forces a project to be checked in after it is left in a state of being checked out following the interruption or unexpected closing of Project Server
      */
     public forceCheckIn(): Promise<void> {
@@ -114,42 +124,42 @@ export interface EnterpriseResourceCreationInformation {
     /**
      * Gets or sets the hyperlink name of the enterprise resource
      */
-    hyperlinkName?: string;
+    HyperlinkName?: string;
 
     /**
      * Gets or sets the hyperlink URL of the enterprise resource
      */
-    hyperlinkUrl?: string;
+    HyperlinkUrl?: string;
 
     /**
      * Gets or sets the GUID of the enterprise resource
      */
-    id?: string;
+    Id?: string;
 
     /**
      * Gets or sets a Boolean value that indicates whether this is a budget resource
      */
-    isBudget?: boolean;
+    IsBudget?: boolean;
 
     /**
      * Gets or sets a Boolean value that indicates whether this is a generic resource
      */
-    isGeneric?: boolean;
+    IsGeneric?: boolean;
 
     /**
      * Gets or sets a Boolean value that indicates whether this resource should be created in an inactive state
      */
-    isInactive?: boolean;
+    IsInactive?: boolean;
 
     /**
      * Gets or sets the name of the enterprise resource
      */
-    name: string;
+    Name: string;
 
     /**
      * Gets or sets a value that represents the resource type
      */
-    resourceType?: EnterpriseResourceType;
+    ResourceType?: EnterpriseResourceType;
 }
 
 /**

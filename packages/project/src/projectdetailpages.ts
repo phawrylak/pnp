@@ -36,15 +36,15 @@ export interface ProjectDetailPageCreationInformation {
     /**
      * Gets or sets the GUID of a project detail page
      */
-    id?: string;
+    Id: string;
 
     /**
      * Gets or sets a value that indicates whether a project detail page is created
      */
-    isCreate?: boolean;
+    IsCreate?: boolean;
 
     /**
      * Gets or sets a value that indicates the order of placement of a project detail page in a list of project detail pages
      */
-    position?: number;
+    Position?: number;
 }

@@ -1,5 +1,9 @@
 import { ConfigOptions } from "@pnp/common";
 import {
+    setup as _setup,
+    ProjectConfiguration,
+} from "./config/projectlibconfig";
+import {
     ProjectQueryable,
     ProjectQueryableConstructor,
 } from "./projectqueryable";
@@ -115,6 +119,15 @@ export class ProjectRest {
      */
     public configure(options: ConfigOptions, baseUrl = ""): ProjectRest {
         return new ProjectRest(options, baseUrl);
+    }
+
+    /**
+     * Global Project configuration options
+     *
+     * @param config The Project configuration to apply
+     */
+    public setup(config: ProjectConfiguration) {
+        _setup(config);
     }
 
     /**
