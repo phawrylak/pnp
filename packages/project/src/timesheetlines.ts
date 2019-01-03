@@ -30,7 +30,11 @@ export class TimeSheetLineCollection extends ProjectQueryableCollection {
      * @param parameters The properties of the timesheet line to create
      */
     public async add(parameters: TimeSheetLineCreationInformation): Promise<CommandResult<TimeSheetLine>> {
-        const data = await this.postCore({ body: jsS(parameters) });
+        this.concat("/add");
+        const params: any = {
+            "parameters": parameters,
+        };
+        const data = await this.postCore({ body: jsS(params) });
         return { data: data, instance: this.getById(data.Id) };
     }
 }
@@ -84,32 +88,32 @@ export interface TimeSheetLineCreationInformation {
     /**
      * Gets or sets the GUID of the assignment that is associated with the timesheet line
      */
-    assignmentId?: string;
+    AssignmentId?: string;
 
     /**
      * Gets or sets the comment for the timesheet line
      */
-    comment?: string;
+    Comment?: string;
 
     /**
      * Gets or sets the GUID for the timesheet line
      */
-    id?: string;
+    Id?: string;
 
     /**
      * Gets or sets the line class type of the timesheet line
      */
-    lineClass?: TimeSheetLineClass;
+    LineClass?: TimeSheetLineClass;
 
     /**
      * Gets or sets the GUID of the project that is associated with the timesheet line
      */
-    projectId?: string;
+    ProjectId?: string;
 
     /**
      * Gets or sets the time sheet line task name
      */
-    taskName?: string;
+    TaskName?: string;
 }
 
 /**
